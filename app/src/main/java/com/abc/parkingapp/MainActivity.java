@@ -34,9 +34,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void validate(String userEmail, String userPassword){
-        if((userEmail.equals("Admin")) && (userPassword.equals("admin")) && !userEmail.isEmpty() && !userPassword.isEmpty()) {
+        /*if((userEmail.equals("Admin")) && (userPassword.equals("admin")) && !userEmail.isEmpty() && !userPassword.isEmpty()) {
             Intent intent = new Intent(MainActivity.this, SecondActivity.class);
             startActivity(intent);
-        }
+        }*/
+        Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+        startActivity(intent);
     }
 }

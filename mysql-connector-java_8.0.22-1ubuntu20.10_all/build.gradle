@@ -1,0 +1,2 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('mysql-connector-java_8.0.22-1ubuntu20.10_all.jar'))
