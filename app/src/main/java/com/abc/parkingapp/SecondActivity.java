@@ -48,16 +48,19 @@ public class SecondActivity extends FragmentActivity implements OnMapReadyCallba
         LatLng vecppark1 = new LatLng(57.028542, 24.098587);
         LatLng vecppark2 = new LatLng(56.789594, 24.572474);
         LatLng vecppark3 = new LatLng(57.177633, 26.048651);
+        LatLng vecppark4 = new LatLng(57.171498, 26.758768);
 
         latlng.add(vecppark);
         latlng.add(vecppark1);
         latlng.add(vecppark2);
         latlng.add(vecppark3);
+        latlng.add(vecppark4);
 
         parkingInfo.add("Rīga");
         parkingInfo.add("ABD");
         parkingInfo.add("Ogre");
         parkingInfo.add("Jaunpiebalga");
+        parkingInfo.add("Ivmen's spot");
 
         Settings = (Button)findViewById((R.id.btnSettings));
         History = (Button)findViewById((R.id.btnHistory));
@@ -84,8 +87,8 @@ public class SecondActivity extends FragmentActivity implements OnMapReadyCallba
         map = googleMap;
 
         for(int i = 0; i<latlng.size();i++){
-            for(int j=1; j<parkingInfo.size();j++){
-                map.addMarker(new MarkerOptions().position(latlng.get(i))
+            for(int j=0; j<parkingInfo.size();j++){
+                map.addMarker(new MarkerOptions().position(latlng.get(j))
                         .title(String.valueOf(parkingInfo.get(j))));
                 Log.v("TEST", parkingInfo.get(i) +"");
             }
