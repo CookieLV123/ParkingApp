@@ -32,8 +32,10 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "nu ir galīgā dirsā");
             e.printStackTrace();}
 
-        try (Connection conn = DriverManager.getConnection(
-                "jdbc:mysql://databases-auth.000webhost.com/id15829689_carparking", "id15829689_admin", "*Superdrosaparole221*")) {
+        try  {
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:mysql://freedb.tech/freedbtech_carparkingapp"
+                    , "freedbtech_id15829689_admin", "*Superdrosaparole221*");
 
             if (conn != null) {
                 Log.d(TAG, "ir conn");
