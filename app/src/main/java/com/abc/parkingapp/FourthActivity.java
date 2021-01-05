@@ -1,49 +1,65 @@
 package com.abc.parkingapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
-
-public class FourthActivity extends AppCompatActivity {
+public class FourthActivity extends SecondActivity {
 
     private Button Return;
-    ListView listview;
+    private Button deleteReservation;
+    TextView city, address, owner, brand, mark, licence, date;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fourth);
+        SecondActivity sa = new SecondActivity();
+        String cityS = getIntent().getStringExtra("CITY");
+        String addressS = getIntent().getStringExtra("ADDRESS");
+        String ownerS = getIntent().getStringExtra("OWNER");
+        String brandS = getIntent().getStringExtra("BRAND");
+        String markS = getIntent().getStringExtra("MARK");
+        String licenceS = getIntent().getStringExtra("LICENCE");
+        //String dateS = getIntent().getStringExtra("DATE");
 
-        listview = (ListView)findViewById((R.id.List));
-        Return = (Button)findViewById((R.id.btnReturn));
+        city = (TextView) findViewById(R.id.city);
+        address = (TextView) findViewById(R.id.address);
+        owner = (TextView) findViewById(R.id.owner);
+        brand = (TextView) findViewById(R.id.brand);
+        mark = (TextView) findViewById(R.id.mark);
+        licence = (TextView) findViewById(R.id.licence);
+        //date = (TextView)findViewById(R.id.date);
 
-        ArrayList<String> arrayList = new ArrayList<>();
+        city.setText(cityS);
+        address.setText(addressS);
+        owner.setText(ownerS);
+        brand.setText(brandS);
+        mark.setText(markS);
+        licence.setText(licenceS);
+        //date.setText(dateS);
 
-        arrayList.add("Spot 1");
-        arrayList.add("Spot 2");
-        arrayList.add("Spot 3");
-        arrayList.add("Spot 4");
-        arrayList.add("Spot 5");
-        arrayList.add("Spot 6");
-        arrayList.add("Spot 7");
-        arrayList.add("Spot 8");
-        arrayList.add("Spot 9");
-        arrayList.add("Spot 10");
-
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayList);
-
-        listview.setAdapter(arrayAdapter);
-
+        Return = (Button) findViewById((R.id.btnReturn));
         Return.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
+                Intent intent = new Intent(FourthActivity.this, SecondActivity.class);
+                startActivity(intent);
+            }
+        });
+        deleteReservation = (Button) findViewById((R.id.btnDeleteReserv));
+        deleteReservation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                city.setText("");
+                address.setText("");
+                owner.setText("");
+                brand.setText("");
+                mark.setText("");
+                licence.setText("");
+                Toast.makeText(FourthActivity.this, "Reservation deleted", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(FourthActivity.this, SecondActivity.class);
                 startActivity(intent);
             }

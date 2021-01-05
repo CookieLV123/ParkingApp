@@ -26,31 +26,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();}
-
-        try  {
-            Connection conn = DriverManager.getConnection(
-                    "jdbc:mysql://freedb.tech/freedbtech_carparkingapp"
-                    , "freedbtech_id15829689_admin", "*Superdrosaparole221*");
-
-            if (conn != null) {
-                Log.d(TAG, "ir conn");
-            } else {
-                Log.d(TAG, "nav conn");
-            }
-
-        } catch (SQLException e) {
-            Log.d(TAG, "nu ir dirsā");
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
-            e.printStackTrace();
-            Log.d(TAG, "nu ir dirsā");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         Email = (EditText)findViewById(R.id.etEmail);
         Password = (EditText)findViewById(R.id.etPassword);
         Login = (Button)findViewById((R.id.btnLogin));

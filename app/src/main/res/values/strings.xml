@@ -14,4 +14,11 @@
     <string name="disable">Disable account</string>
     <string name="logout">Logout</string>
     <string name="reservations">Active reservations</string>
+
+    <string name="confirmation">Confirmation</string>
+    <string name="carBrand">Car Brand</string>
+    <string name="carMark">Car Mark</string>
+    <string name="licenceNr">Licence Nr.</string>
+    <string name="confirm">Confirm</string>
+    <string name="activeReserv">Active Reservation</string>
 </resources>
