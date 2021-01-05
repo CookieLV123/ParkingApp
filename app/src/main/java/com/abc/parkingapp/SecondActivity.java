@@ -100,7 +100,25 @@ public class SecondActivity extends FragmentActivity implements OnMapReadyCallba
                 String title = marker.getTitle();
                 AlertDialog dialogBox = new AlertDialog.Builder(SecondActivity.this)
                         .setTitle(title)
+                        .setMessage("Adrese: Kkur bedrē\nĪpašnieks: Ansis Alnis\nBrīvās vietas: 15")
+                        .setPositiveButton("Select", null)
+                        .setNegativeButton("Cancel", null)
                         .show();
+
+                Button posButton = dialogBox.getButton(AlertDialog.BUTTON_POSITIVE);
+                posButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialogBox.cancel();
+                    }
+                });
+                Button negButton = dialogBox.getButton(AlertDialog.BUTTON_NEGATIVE);
+                negButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialogBox.cancel();
+                    }
+                });
 
                 return false;
             }
