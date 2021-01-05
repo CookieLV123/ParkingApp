@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">ParkingApp</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="google">Sign in with Google</string>
+    <string name="settings">Settings</string>
+    <string name="choose">Choose parking spot</string>
+    <string name="active">Active reservation</string>
+    <string name="select">Select</string>
+    <string name="back">Back</string>
+    <string name="darkmode">Dark Mode</string>
+    <string name="disable">Disable account</string>
+    <string name="logout">Logout</string>
+    <string name="reservations">Active reservations</string>
 </resources>
