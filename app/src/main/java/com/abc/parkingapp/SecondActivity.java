@@ -16,7 +16,6 @@ public class SecondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-        getSupportActionBar().setTitle("Spot reservation");
 
         Settings = (Button)findViewById((R.id.btnSettings));
         History = (Button)findViewById((R.id.btnHistory));

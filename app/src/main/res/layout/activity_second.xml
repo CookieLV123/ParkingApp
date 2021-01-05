@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/parking2"
     tools:context=".SecondActivity">
 
     <Button
         android:id="@+id/btnSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/settings"
+        android:text="Settings"
         app:backgroundTint="@color/purple_700"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +33,7 @@
         android:id="@+id/btnSelect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/select"
+        android:text="Select"
         app:backgroundTint="@color/purple_700"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,19 +46,20 @@
         android:id="@+id/txtMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/choose"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:text="Choose a parking spot:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintBottom_toTopOf="@+id/mapView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.197"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.7" />
+        app:layout_constraintVertical_bias="0.579" />
 
     <Button
         android:id="@+id/btnHistory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/history"
+        android:text="Parking history"
         app:backgroundTint="@color/purple_700"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
