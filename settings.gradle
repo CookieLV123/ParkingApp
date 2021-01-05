@@ -1,3 +1,4 @@
+include ':mysql-connector-java-8.0.22'
 include ':mysql-connector-java_8.0.22-1ubuntu20.10_all'
 include ':app'
 rootProject.name = "ParkingApp"
