@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            Log.d(TAG, "nu ir galīgā dirsā");
             e.printStackTrace();}
 
         try  {
