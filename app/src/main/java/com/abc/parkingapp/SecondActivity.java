@@ -2,6 +2,7 @@ package com.abc.parkingapp;
 
 import androidx.appcompat.app.AlertDialog;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.FragmentActivity;
 
 import android.app.DatePickerDialog;
@@ -41,7 +42,6 @@ public class SecondActivity extends FragmentActivity implements OnMapReadyCallba
     private Button selectReservation;
     private Button activeReservation;
     DatePicker datePicker;
-
     String city = "", address = "", owner = "", brand = "", mark = "", licence = "", date = "";
 
     ArrayList<LatLng> latlng = new ArrayList<LatLng>();
@@ -57,6 +57,7 @@ public class SecondActivity extends FragmentActivity implements OnMapReadyCallba
 
         return returns;
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,6 +170,7 @@ public class SecondActivity extends FragmentActivity implements OnMapReadyCallba
             }
         });
     }
+
 
     @Override
 
