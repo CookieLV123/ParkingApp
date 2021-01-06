@@ -45,8 +45,7 @@ public class FourthActivity extends SecondActivity {
         Return.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FourthActivity.this, SecondActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
         deleteReservation = (Button) findViewById((R.id.btnDeleteReserv));
@@ -62,7 +61,14 @@ public class FourthActivity extends SecondActivity {
                 Toast.makeText(FourthActivity.this, "Reservation deleted", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(FourthActivity.this, SecondActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
+    }
+    @Override
+
+    public void onDestroy() {
+        super.onDestroy();
+        finish();
     }
 }

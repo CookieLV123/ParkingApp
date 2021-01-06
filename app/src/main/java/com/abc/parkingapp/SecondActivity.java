@@ -13,12 +13,14 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -31,10 +33,12 @@ public class SecondActivity extends FragmentActivity implements OnMapReadyCallba
     private Button selectReservation;
     private Button activeReservation;
 
-    String city, address, owner, brand, mark, licence, date;
+
+    String city = "", address = "", owner = "", brand = "", mark = "", licence = "", date = "";
 
     ArrayList<LatLng> latlng = new ArrayList<LatLng>();
     ArrayList<String> parkingInfo = new ArrayList<String>();
+    ArrayList<Marker> markers = new ArrayList<Marker>();
     MapView mapView;
     GoogleMap map;
 
@@ -73,16 +77,20 @@ public class SecondActivity extends FragmentActivity implements OnMapReadyCallba
         activeReservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SecondActivity.this, FourthActivity.class);
-                intent.putExtra("CITY", city);
-                intent.putExtra("ADDRESS", address);
-                intent.putExtra("OWNER", owner);
-                intent.putExtra("BRAND", brand);
-                intent.putExtra("MARK", mark);
-                intent.putExtra("LICENCE", licence);
-                //intent.putExtra("DATE", date);
+                if(city.equals("") && address.equals("") && owner.equals("")){
+                    Toast.makeText(SecondActivity.this, "No active reservation", Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent intent = new Intent(SecondActivity.this, FourthActivity.class);
+                    intent.putExtra("CITY", city);
+                    intent.putExtra("ADDRESS", address);
+                    intent.putExtra("OWNER", owner);
+                    intent.putExtra("BRAND", brand);
+                    intent.putExtra("MARK", mark);
+                    intent.putExtra("LICENCE", licence);
+                    //intent.putExtra("DATE", date);
 
-                startActivity(intent);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -138,19 +146,36 @@ public class SecondActivity extends FragmentActivity implements OnMapReadyCallba
             }
         });
     }
+    @Override
 
+    public void onDestroy() {
+        super.onDestroy();
+        finish();
+    }
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
         for (int i = 0; i < latlng.size(); i++) {
             for (int j = 0; j < parkingInfo.size(); j++) {
                 String[] temp = (String.valueOf(parkingInfo.get(j))).split(",", 4);
-                map.addMarker(new MarkerOptions().position(latlng.get(j))
-                        .title(temp[0]).snippet("" + j));
+                builder.include((map.addMarker(new MarkerOptions().position(latlng.get(j))
+                        .title(temp[0]).snippet("" + j))).getPosition());
                 Log.v("TEST", parkingInfo.get(i) + "");
             }
             map.moveCamera(CameraUpdateFactory.newLatLng(latlng.get(i)));
+
+            //the include method will calculate the min and max bound.
+
+            LatLngBounds bounds = builder.build();
+
+            int width = getResources().getDisplayMetrics().widthPixels;
+            int height = getResources().getDisplayMetrics().heightPixels;
+            int padding = (int) (width * 0.20); // offset from edges of the map 10% of screen
+
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
+
+            map.animateCamera(cu);
             map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                 @Override
                 public boolean onMarkerClick(Marker marker) {

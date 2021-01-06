@@ -38,6 +38,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+
+    public void onDestroy() {
+        super.onDestroy();
+        finish();
+    }
 
     private void validate(String userEmail, String userPassword){
         /*if((userEmail.equals("Admin")) && (userPassword.equals("admin")) && !userEmail.isEmpty() && !userPassword.isEmpty()) {
