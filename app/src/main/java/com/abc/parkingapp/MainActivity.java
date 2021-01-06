@@ -26,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+        startActivity(intent);
+
         Email = (EditText)findViewById(R.id.etEmail);
         Password = (EditText)findViewById(R.id.etPassword);
         Login = (Button)findViewById((R.id.btnLogin));
@@ -50,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, SecondActivity.class);
             startActivity(intent);
         }*/
-        Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-        startActivity(intent);
+
     }
 }
