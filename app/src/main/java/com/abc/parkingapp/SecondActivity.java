@@ -4,7 +4,9 @@ import androidx.appcompat.app.AlertDialog;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,15 +26,21 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class SecondActivity extends FragmentActivity implements OnMapReadyCallback {
+
+    private final String SHARED_PREFERENCES = "CAR_PREFERENCES";
 
     private Button Settings;
     private Button History;
     private Button selectReservation;
     private Button activeReservation;
-
+    DatePicker datePicker;
 
     String city = "", address = "", owner = "", brand = "", mark = "", licence = "", date = "";
 
@@ -41,6 +49,14 @@ public class SecondActivity extends FragmentActivity implements OnMapReadyCallba
     ArrayList<Marker> markers = new ArrayList<Marker>();
     MapView mapView;
     GoogleMap map;
+
+    public String readPrefs(String value){
+        SharedPreferences prefs = getSharedPreferences(SHARED_PREFERENCES,MODE_PRIVATE);
+
+        String returns = prefs.getString(value, "");
+
+        return returns;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,13 +89,12 @@ public class SecondActivity extends FragmentActivity implements OnMapReadyCallba
         History = (Button) findViewById((R.id.btnActiveReserve));
         selectReservation = (Button) findViewById((R.id.btnSelect));
         activeReservation = (Button) findViewById(R.id.btnActiveReserve);
+        datePicker = (DatePicker) findViewById(R.id.dateComing);
 
         activeReservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(city.equals("") && address.equals("") && owner.equals("")){
-                    Toast.makeText(SecondActivity.this, "No active reservation", Toast.LENGTH_SHORT).show();
-                }else {
+                if (city!="" || address!="" || owner!="") {
                     Intent intent = new Intent(SecondActivity.this, FourthActivity.class);
                     intent.putExtra("CITY", city);
                     intent.putExtra("ADDRESS", address);
@@ -90,6 +105,8 @@ public class SecondActivity extends FragmentActivity implements OnMapReadyCallba
                     //intent.putExtra("DATE", date);
 
                     startActivity(intent);
+                }else {
+                    Toast.makeText(SecondActivity.this, "No active reservation", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -104,48 +121,55 @@ public class SecondActivity extends FragmentActivity implements OnMapReadyCallba
         selectReservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //if(!city.equals("") && !address.equals("")) {
-       /*     }else {
-                Toast.makeText(SecondActivity.this, "Parking site not selected" + date, Toast.LENGTH_SHORT).show();
-            }*/
-                AlertDialog.Builder builder = new AlertDialog.Builder(SecondActivity.this);
-                View dialogView = getLayoutInflater().inflate(R.layout.dialog_confirmation, null);
-                EditText carMark = (EditText) dialogView.findViewById(R.id.carMark);
-                EditText carBrand = (EditText) dialogView.findViewById(R.id.carBrand);
-                EditText licenceNr = (EditText) dialogView.findViewById(R.id.licenceNr);
-                DatePicker datePicker = (DatePicker) findViewById(R.id.dateComing);
+                if (city!="" || address!="" || owner!="") {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SecondActivity.this);
+                    View dialogView = getLayoutInflater().inflate(R.layout.dialog_confirmation, null);
+                    EditText carMark = (EditText) dialogView.findViewById(R.id.carMark);
+                    EditText carBrand = (EditText) dialogView.findViewById(R.id.carBrand);
+                    EditText licenceNr = (EditText) dialogView.findViewById(R.id.licenceNr);
+                    DatePicker datePicker = (DatePicker) findViewById(R.id.dateComing);
 
-                Button confirm = (Button) dialogView.findViewById(R.id.confirm);
+                    carMark.setText(readPrefs("mark"));
+                    carBrand.setText(readPrefs("brand"));
+                    licenceNr.setText(readPrefs("licence"));
 
-                builder.setView(dialogView);
-                AlertDialog dialog = builder.create();
-                dialog.show();
-                confirm.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (!carMark.getText().toString().isEmpty() && !carBrand.getText().toString().isEmpty() && !licenceNr.getText().toString().isEmpty()) {
-                            mark = carMark.getText().toString();
-                            brand = carBrand.getText().toString();
-                            licence = licenceNr.getText().toString();
 
-                                /*int day = datePicker.getDayOfMonth();
-                                int month = datePicker.getMonth();
-                                int year = datePicker.getYear();
+                    Button confirm = (Button) dialogView.findViewById(R.id.confirm);
 
-                                String date = String.valueOf(day) + "/" + String.valueOf(month) + "/" + String.valueOf(year);*/
+                    builder.setView(dialogView);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    confirm.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (!carMark.getText().toString().isEmpty() && !carBrand.getText().toString().isEmpty() && !licenceNr.getText().toString().isEmpty()) {
+                                mark = carMark.getText().toString();
+                                brand = carBrand.getText().toString();
+                                licence = licenceNr.getText().toString();
 
-                            Toast.makeText(SecondActivity.this, "Reservation completed", Toast.LENGTH_SHORT).show();
+                                SharedPreferences prefs = getSharedPreferences(SHARED_PREFERENCES,MODE_PRIVATE);
+                                SharedPreferences.Editor edit = prefs.edit();
+                                edit.putString("brand", carBrand.getText().toString());
+                                edit.putString("mark", carMark.getText().toString());
+                                edit.putString("licence", licenceNr.getText().toString());
+                                edit.apply();
 
-                            Log.v("LOG", city + " " + address + " " + owner + " " + mark + " " + brand + " " + licence);
-                            dialog.cancel();
-                        } else {
-                            Toast.makeText(SecondActivity.this, "Empty fields", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SecondActivity.this, "Reservation completed" + date, Toast.LENGTH_SHORT).show();
+
+                                Log.v("LOG", city + " " + address + " " + owner + " " + mark + " " + brand + " " + licence);
+                                dialog.cancel();
+                            } else {
+                                Toast.makeText(SecondActivity.this, "Empty fields", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+                } else {
+                Toast.makeText(SecondActivity.this, "Parking site not selected" + date, Toast.LENGTH_SHORT).show();
+            }
             }
         });
     }
+
     @Override
 
     public void onDestroy() {
@@ -214,4 +238,5 @@ public class SecondActivity extends FragmentActivity implements OnMapReadyCallba
             });
         }
     }
+
 }
